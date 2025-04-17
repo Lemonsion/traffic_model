@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Example</title>
+</head>
+<body>
+
+<h1>问答系统</h1>
+<input type="text" id="question" placeholder="输入你的问题" />
+<button onclick="askQuestion()">提问</button>
+
+<p id="answer">模型回答会显示在这里。</p>
+
+<script>
+    const socket = new WebSocket('ws://127.0.0.1:8000/api');  // 修改为新的 WebSocket 路径
+
+    // 当连接建立时
+    socket.onopen = () => {
+        console.log("WebSocket 连接成功");
+    };
+
+    // 接收到后端返回的消息
+    socket.onmessage = (event) => {
+        document.getElementById("answer").innerText = "模型回答: " + event.data;
+    };
+
+    // 提问函数
+    function askQuestion() {
+        const question = document.getElementById("question").value;
+        if (question) {
+            socket.send(question);  // 发送问题到后端
+        }
+    }
+</script>
+
+</body>
+</html>

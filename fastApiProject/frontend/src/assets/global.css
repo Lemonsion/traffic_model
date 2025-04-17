@@ -1,0 +1,6 @@
+body, html {
+background-color: rgb(203, 233, 246); /* 设置白色背景 */
+}
+body.dark-theme {
+  background-color: rgb(167, 197, 228); /* 黑色背景 */
+}
